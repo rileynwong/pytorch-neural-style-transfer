@@ -20,7 +20,7 @@ import torchvision.models as models
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Set output image size
-imsize = 512
+imsize = 400
 
 loader = transforms.Compose([
     transforms.Resize(imsize), # Resize images
@@ -246,9 +246,9 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
-style_path = 'style_imgs/whistler_nocturne_dark.jpg'
-content_paths = 'content_imgs/clouds/*'
-output_folder = 'results/whistler_clouds/'
+style_path = 'style_imgs/neon_noir_1.jpg'
+content_paths = 'content_imgs/nightscapes/*'
+output_folder = 'results/neon_noir_nightscapes/'
 
 style_img = image_loader(style_path)
 
