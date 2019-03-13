@@ -246,13 +246,13 @@ cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
 style_path = 'style_imgs/picasso.jpg'
-content_folder = 'content_imgs/'
+content_paths = 'content_imgs/*'
 output_folder = 'results/'
 
 style_img = image_loader(style_path)
 
 count = 0
-for content_path in glob.glob(content_folder):
+for content_path in glob.glob(content_paths):
 
     # Set content and result paths
     output_path = output_folder + 'result_{}.jpg'.format(count)

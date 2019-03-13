@@ -39,10 +39,6 @@ def imshow(tensor, title=None):
     image = tensor.cpu().clone()
     image = image.squeeze(0)
     image = unloader(image)
-    plt.imshow(image)
-    if title:
-        plt.title(title)
-    plt.pause(0.001)
 
 
 ### Loss Functions
@@ -258,8 +254,8 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style and content image paths
-style_path = 'images/picasso.jpg'
-content_path = 'images/dancing.jpg'
+style_path = 'style_imgs/picasso.jpg'
+content_path = 'content_imgs/dancing.jpg'
 
 style_img = image_loader(style_path)
 content_img = image_loader(content_path)
