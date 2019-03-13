@@ -8,6 +8,7 @@ import torch.optim as optim
 from PIL import Image
 import matplotlib.pyplot as plt
 
+import torchvision
 import torchvision.transforms as transforms
 import torchvision.models as models
 
@@ -154,6 +155,7 @@ def create_network_with_losses(cnn, norm_mean, norm_std,
     are detecting by creating new Sequential module w/ content loss and style loss
     modules correctly inserted.
     """
+    print('Creating network...')
 
     cnn = copy.deepcopy(cnn)
 
@@ -242,7 +244,6 @@ def run_style_transfer(cnn, norm_mean, norm_std,
     model, style_losses, content_losses = create_network_with_losses(cnn, norm_mean, norm_std, style_img, content_img)
     optimizer = get_input_optimizer(input_img)
 
-    print('Optimizing...')
     run = [0]
 
     while run[0] <= num_steps:
@@ -294,7 +295,7 @@ plt.ioff()
 plt.show()
 
 # Write output image to file
-with open('output.png', 'rb') as f:
-    f.write(output)
+print('Writing output to file...')
+torchvision.utils.save_image(output, 'output.png')
 
 
