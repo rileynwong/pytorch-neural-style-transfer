@@ -28,6 +28,7 @@ loader = transforms.Compose([
 
 def image_loader(image_name):
     image = Image.open(image_name)
+    image = image.resize((imsize,imsize)) # Resize
     image = loader(image).unsqueeze(0)
     return image.to(device, torch.float)
 
@@ -245,9 +246,9 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
-style_path = 'style_imgs/picasso.jpg'
-content_paths = 'content_imgs/*'
-output_folder = 'results/'
+style_path = 'style_imgs/whistler_nocturne_purple.jpg'
+content_paths = 'content_imgs/nightscapes/*'
+output_folder = 'results/whistler_nocturne_purple/'
 
 style_img = image_loader(style_path)
 
@@ -258,11 +259,11 @@ for content_path in glob.glob(content_paths):
     output_path = output_folder + 'result_{}.jpg'.format(count)
     content_img = image_loader(content_path)
 
-    # Check style and content images are same size
-    assert style_img.size() == content_img.size(), 'Style and content images need to be the same size.'
-
     # Set input image: can use white noise, or a copy of the input image
     input_img = content_img.clone() # Input image copy
+
+     # Check style and content images are same size
+    assert style_img.size() == content_img.size(), 'Style and content images need to be the same size.'
 
     ### Run style transfer
     output = run_style_transfer(cnn, cnn_norm_mean, cnn_norm_std, content_img, style_img, input_img)
@@ -272,8 +273,4 @@ for content_path in glob.glob(content_paths):
     torchvision.utils.save_image(output, output_path)
 
     count += 1
-
-
-
-
 
