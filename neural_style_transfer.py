@@ -74,6 +74,7 @@ class ContentLoss(nn.Module):
 
     def forward(self, input):
         self.loss = F.mse_loss(input, self.target)
+        return input
 
 # Style loss
 def gram_matrix(input):
