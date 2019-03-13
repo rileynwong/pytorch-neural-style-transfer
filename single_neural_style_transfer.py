@@ -27,6 +27,7 @@ loader = transforms.Compose([
 
 def image_loader(image_name):
     image = Image.open(image_name)
+    image = image.resize((imsize, imsize))
     image = loader(image).unsqueeze(0)
     return image.to(device, torch.float)
 
@@ -194,7 +195,7 @@ def get_input_optimizer(input_image):
 ### Neural Style Transfer
 def run_style_transfer(cnn, norm_mean, norm_std,
         content_img, style_img, input_img,
-        num_steps=300, style_weight=1000000, content_weight=1):
+        num_steps=300, style_weight=900000000, content_weight=1):
     """ Run the style transfer. """
     print('Building style transfer model...')
     model, style_losses, content_losses = create_network_with_losses(cnn, norm_mean, norm_std, style_img, content_img)
@@ -254,8 +255,8 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style and content image paths
-style_path = 'style_imgs/picasso.jpg'
-content_path = 'content_imgs/dancing.jpg'
+style_path = 'style_imgs/marbled_paint_1.jpeg'
+content_path = 'content_imgs/clouds/clouds12.jpg'
 
 style_img = image_loader(style_path)
 content_img = image_loader(content_path)
