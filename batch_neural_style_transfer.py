@@ -20,7 +20,7 @@ import torchvision.models as models
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Set output image size
-imsize = 512 if torch.cuda.is_available() else 128
+imsize = 512
 
 loader = transforms.Compose([
     transforms.Resize(imsize), # Resize images
