@@ -246,9 +246,9 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
-style_path = 'style_imgs/marbled_paint_1.jpeg'
+style_path = 'style_imgs/iridescent_4.jpg'
 content_paths = 'content_imgs/*/*'
-output_folder = 'results/marbled_1/'
+output_folder = 'results/iridescent_4/'
 
 style_img = image_loader(style_path)
 
