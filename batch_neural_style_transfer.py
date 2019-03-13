@@ -246,9 +246,9 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
-style_path = 'style_imgs/akira/akira_3.jpg'
-content_paths = 'content_imgs/skeletons/*'
-output_folder = 'results/akira_skeletons/'
+style_path = 'style_imgs/line_art.jpg'
+content_paths = 'content_imgs/*/*'
+output_folder = 'results/lineart/'
 
 style_img = image_loader(style_path)
 
