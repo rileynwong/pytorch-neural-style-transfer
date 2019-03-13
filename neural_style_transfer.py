@@ -6,9 +6,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 from PIL import Image
-import matplotlib.pyplot as plt
 
 import torchvision
+
 import torchvision.transforms as transforms
 import torchvision.models as models
 
@@ -25,27 +25,14 @@ loader = transforms.Compose([
     transforms.Resize(imsize), # Resize images
     transforms.ToTensor()]) # Convert to torch tensor
 
-
 def image_loader(image_name):
     image = Image.open(image_name)
     image = loader(image).unsqueeze(0)
     return image.to(device, torch.float)
 
 
-# Set style and content image paths
-style_path = 'images/picasso.jpg'
-content_path = 'images/dancing.jpg'
-
-style_img = image_loader(style_path)
-content_img = image_loader(content_path)
-
-# Check style and content images are same size
-assert style_img.size() == content_img.size(), 'Style and content images need to be the same size.'
-
-
 # Convert images to PIL format
 unloader = transforms.ToPILImage() # Convert to PIL format
-plt.ion()
 
 def imshow(tensor, title=None):
     """Display image in notebook"""
@@ -56,13 +43,6 @@ def imshow(tensor, title=None):
     if title:
         plt.title(title)
     plt.pause(0.001)
-
-# Notebook: show images
-plt.figure()
-imshow(style_img, title='Style Image')
-
-plt.figure()
-imshow(content_img, title='Content Image')
 
 
 ### Loss Functions
@@ -105,17 +85,6 @@ class StyleLoss(nn.Module):
         self.loss = F.mse_loss(G, self.target)
         return input
 
-
-### Import model
-"""
-Use pretrained, 19-layer VGG network.
-Use features module and set to evaluation mode.
-"""
-cnn = models.vgg19(pretrained=True).features.to(device).eval()
-
-# Normalize images w/ mean and std
-cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
-cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 ## Normalize input image w/ module so we can put it in a nn.Sequential layer
 class Normalization(nn.Module):
@@ -217,15 +186,6 @@ def create_network_with_losses(cnn, norm_mean, norm_std,
     return model, style_losses, content_losses
 
 
-# Set input image: can use white noise, or a copy of the input image
-input_img = content_img.clone() # Input image copy
-
-# input_img = torch.randn(content_img.data.size(), device=device) # White noise
-
-plt.figure()
-imshow(input_img, title='Input Image')
-
-
 ### Gradient Descent
 def get_input_optimizer(input_image):
     """
@@ -286,16 +246,34 @@ def run_style_transfer(cnn, norm_mean, norm_std,
 
 
 ### Run algorithm
+# Import model
+"""
+Use pretrained, 19-layer VGG network.
+Use features module and set to evaluation mode.
+"""
+cnn = models.vgg19(pretrained=True).features.to(device).eval()
+
+# Normalize images w/ mean and std
+cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
+cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
+
+# Set style and content image paths
+style_path = 'images/picasso.jpg'
+content_path = 'images/dancing.jpg'
+
+style_img = image_loader(style_path)
+content_img = image_loader(content_path)
+
+# Check style and content images are same size
+assert style_img.size() == content_img.size(), 'Style and content images need to be the same size.'
+
+# Set input image: can use white noise, or a copy of the input image
+input_img = content_img.clone() # Input image copy
+
+# Run style transfer
 output = run_style_transfer(cnn, cnn_norm_mean, cnn_norm_std, content_img, style_img, input_img)
-
-plt.figure()
-imshow(output, title='Output Image')
-
-plt.ioff()
-plt.show()
 
 # Write output image to file
 print('Writing output to file...')
 torchvision.utils.save_image(output, 'output.png')
-
 
