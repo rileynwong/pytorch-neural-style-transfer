@@ -246,9 +246,9 @@ cnn_norm_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_norm_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 # Set style image, content folder, and output folder paths
-style_path = 'style_imgs/turner_burning.jpg'
+style_path = 'style_imgs/whistler_nocturne_dark.jpg'
 content_paths = 'content_imgs/clouds/*'
-output_folder = 'results/turner_clouds/'
+output_folder = 'results/whistler_clouds/'
 
 style_img = image_loader(style_path)
 
