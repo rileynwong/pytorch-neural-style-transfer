@@ -23,19 +23,12 @@ Install dependencies:
 $ pip install -r requirements.txt
 ```
 
-## File Overview 
-- `single_neural_style_transfer.py`: Run neural style transfer on a single content image.
-- `batch_neural_style_transfer.py`: Run neural style transfer on a directory of content images.
-- `requirements.txt`: Contains dependencies for project to be installed.
-
-Optional:
-- `style_imgs/`: Directory containing images I thought would be nice to use as style input.
-- `content_images/`: Directory containing images I thought would be nice to use as content input.
-- `results/`: Directory containing results from previous runs.
-
 ## Usage 
 
 ### Neural style transfer on a single image
+`$ python single_neural_style_transfer.py`
+
+#### Settings 
 In `single_neural_style_transfer.py`: 
 - Setting the style image
   - On line 258: `style_path = 'style_imgs/marbled_paint_1.jpeg'`
@@ -51,6 +44,9 @@ In `single_neural_style_transfer.py`:
   - If you want, replace this with the filepath where you would like the output image to go.
 
 ### Neural style transfer on a directory of images
+`$ python batch_neural_style_transfer.py`
+
+#### Settings 
 In `batch_neural_style_transfer.py`: 
 - Setting the style image 
   - On line 249: `style_path = 'style_imgs/turner_sunset.jpg'`
@@ -69,10 +65,20 @@ In `batch_neural_style_transfer.py`:
 - Image size: `imsize = 256`
   - By default, the resulting images will be 256 x 256 pixels.  
 - Style and content weights, number of iterations
+  - Can tweak style_weight, content_weight, and num_steps.
+  - More steps -> more stylized. 
 ```
 def run_style_transfer(cnn, norm_mean, norm_std,
         content_img, style_img, input_img,
         num_steps=300, style_weight=1000000, content_weight=1):
 ```
-  - Can tweak style_weight, content_weight, and num_steps.
-  - More steps -> more stylized. 
+
+## File Overview 
+- `single_neural_style_transfer.py`: Run neural style transfer on a single content image.
+- `batch_neural_style_transfer.py`: Run neural style transfer on a directory of content images.
+- `requirements.txt`: Contains dependencies for project to be installed.
+
+Optional:
+- `style_imgs/`: Directory containing images I thought would be nice to use as style input.
+- `content_images/`: Directory containing images I thought would be nice to use as content input.
+- `results/`: Directory containing results from previous runs.
