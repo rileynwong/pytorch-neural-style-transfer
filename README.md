@@ -11,6 +11,8 @@ Style image + Content image -> Result
 
 <img src='https://i.imgur.com/a6ymELU.jpg' width='250' height='250'><img src='http://i.imgur.com/5qILgh1.jpg' width='250' height='250'><img src='https://i.imgur.com/Kr7oeVV.jpg' width='250' height='250'>
 
+The style image used here is Nocturne in Black and Gold, the Falling Rocket by James Abbott McNeill Whistler.
+
 ## Setup
 Create and activate a new virtual environment:
 ```
