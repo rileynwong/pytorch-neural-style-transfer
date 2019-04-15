@@ -1,6 +1,6 @@
 # PyTorch Implementation of Neural Style Transfer
 
-Implementation of the [neural style transfer algorithm](https://arxiv.org/abs/1508.06576) (Gatys, Ecker, Bethge) using [PyTorch](https://pytorch.org/). 
+Implementation of the [neural style transfer algorithm](https://arxiv.org/abs/1508.06576) (Gatys, Ecker, Bethge) using [PyTorch](https://pytorch.org/). [See accompanying blog post.](https://www.rileynwong.com/blog/2019/3/19/implementing-neural-style-transfer-from-scratch-using-pytorch)
 
 Generally follows the PyTorch [tutorial](https://pytorch.org/tutorials/advanced/neural_style_tutorial.html), with some modifications.
 
